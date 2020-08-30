@@ -54,7 +54,7 @@ namespace rt {
         Sphere(const Point3& p, float r)
             : center_(p), radius_(r)
         {}
-        bool intersect(const Ray& ray, rt::HitRecord& record) {
+        bool intersect(const Ray& ray, HitRecord& record) {
             Vec3 op = center_ - ray.origin();
             float eps = 1e-4;
             float b = dot(ray.direction(), op);
