@@ -3,8 +3,8 @@
 #include "noncopyable.h"
 
 #include <assert.h>
-#include <pthread.h>
 #include <stdlib.h>
+#include <mutex>
 
 namespace rt {
     template<typename T>
@@ -21,8 +21,8 @@ namespace rt {
         ~Singleton() = delete;
 
         static T& instance() {
-            pthread_once(&ponce_, &Singleton::init);
-            assert(value_ != nullptr);
+            std::call_once(flag_, &Singleton::init);
+            assert(nullptr != value_);
             return *value_;
         }
 
@@ -42,12 +42,9 @@ namespace rt {
             value_ = nullptr;
         }
     private:
-        static pthread_once_t   ponce_;
+        static std::once_flag          flag_;
         static T*               value_;
     };
-
-    template<typename T>
-    pthread_once_t Singleton<T>::ponce_ = PTHREAD_ONCE_INIT;
 
     template<typename T>
     T* Singleton<T>::value_ = nullptr;
