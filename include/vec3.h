@@ -53,7 +53,11 @@ namespace rt {
             double length() const {
                 return sqrt(length_squared());
             }
-            
+            //单位化
+            void normalize() {
+                *this /= length();
+            }
+
             void write_color(std::ostream &out, int samples_per_pixel) {
                 if (e_[0] != e_[0]) e_[0] = 0.0;
                 if (e_[1] != e_[1]) e_[1] = 0.0;
@@ -121,7 +125,7 @@ namespace rt {
                     u.e_[0] * v.e_[1] - u.e_[1] * v.e_[0]);
     }
     //向量单位化
-    inline Vec3 unit_vector(Vec3 v) {
+    inline Vec3 normalize(Vec3 v) {
         return v / v.length();
     }
 

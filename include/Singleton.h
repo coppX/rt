@@ -42,7 +42,7 @@ namespace rt {
             value_ = nullptr;
         }
     private:
-        static std::once_flag          flag_;
+        static std::once_flag   flag_;
         static T*               value_;
     };
 
